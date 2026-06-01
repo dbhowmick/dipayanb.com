@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  posts: CollectionEntry<"posts">[];
+}
+
+const { posts } = Astro.props;
+
+// "YYYY · MM" mono date, derived from pubDate.
+const formatDate = (d: Date) =>
+  `${d.getUTCFullYear()} · ${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+---
+
+<ul class="divide-y divide-border border-t border-border">
+  {
+    posts.map((post) => (
+      <li class="reveal">
+        <a
+          href={`/writing/${post.id}`}
+          class="group flex flex-col gap-1 py-5 transition-colors sm:flex-row sm:items-baseline sm:gap-6"
+        >
+          <span class="font-mono text-xs text-muted-foreground sm:w-24 sm:shrink-0">
+            {formatDate(post.data.pubDate)}
+          </span>
+          <span class="flex flex-col gap-1">
+            <span class="font-serif text-lg font-medium tracking-[-0.01em] text-foreground transition-opacity group-hover:opacity-70">
+              {post.data.title}
+            </span>
+            <span class="text-sm leading-[1.6] text-muted-foreground">
+              {post.data.description}
+            </span>
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,24 @@
+---
+import Section from "./Section.astro";
+// Three credibility proof points, Geist Mono, hairline-divided. <!-- TODO: review copy -->
+const stats = [
+  { metric: "$0 → $4M ARR", label: "Acceldata" },
+  { metric: "Apache committer", label: "Ambari" },
+  { metric: "Site lead", label: "Altimate AI" },
+];
+---
+
+<Section class="py-8">
+  <dl class="reveal grid grid-cols-1 divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+    {
+      stats.map((stat) => (
+        <div class="flex flex-col gap-1 py-3 sm:px-6 sm:py-0 sm:first:pl-0">
+          <dt class="font-mono text-sm text-foreground">{stat.metric}</dt>
+          <dd class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            {stat.label}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>

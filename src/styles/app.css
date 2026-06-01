@@ -2,6 +2,20 @@
 @import "tw-animate-css";
 @import "@meldui/vue/themes/default";
 
+/* Dark-first re-skin (default.com-inspired). Deepen + neutralize the dark surface
+   away from MeldUI's blue-tinted slate toward a premium near-black. Single post-import
+   token override (sanctioned by docs/design.md). Light mode rides MeldUI defaults. */
+.dark {
+  --background: oklch(0.12 0 0);
+  --card: oklch(0.16 0 0);
+  --popover: oklch(0.16 0 0);
+  --muted: oklch(0.2 0 0);
+  --secondary: oklch(0.2 0 0);
+  --accent: oklch(0.22 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+}
+
 /* Tailwind v4 content sources (CSS-first config — no tailwind.config.js). */
 @source "../**/*.{astro,vue,js,ts,jsx,tsx,md,mdx}";
 /* Load-bearing: without this, MeldUI components render unstyled. */
@@ -13,4 +27,76 @@
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
   --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
+}
+
+/* Hero artwork (Bangalore skyline). Feather the edges with a mask so the bright
+   illustration dissolves into the page instead of reading as a hard rectangle.
+   Mobile: a strip below the copy, fading in from the top.
+   Large screens: bleeds off the right, fading out toward the text on the left. */
+.hero-art {
+  /* Mobile: a strip above the copy — solid at the top, dissolving at the bottom edge. */
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 42%, black 100%);
+  mask-image: linear-gradient(to top, transparent 0%, black 42%, black 100%);
+}
+@media (min-width: 1024px) {
+  .hero-art {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 44%,
+      black 100%
+    );
+    mask-image: linear-gradient(to right, transparent 0%, black 44%, black 100%);
+  }
+}
+
+/* Desktop sky wash on the left: picks up the illustration's sky blue and fades to the
+   page background before the copy, balancing the image's color weight on the right.
+   Concentrated in the empty left gutter so the headline stays on clean ground. */
+.hero-skywash {
+  background: linear-gradient(
+    to right,
+    oklch(0.86 0.06 236 / 0.6) 0%,
+    oklch(0.86 0.06 236 / 0.18) 20%,
+    transparent 36%
+  );
+}
+.dark .hero-skywash {
+  background: linear-gradient(
+    to right,
+    oklch(0.55 0.1 245 / 0.32) 0%,
+    oklch(0.55 0.1 245 / 0.1) 22%,
+    transparent 40%
+  );
+}
+
+/* Warm sunrise glow behind the hero artwork — ties the illustration's amber tones
+   into the near-black page. Dark mode only; light mode lets the image speak. */
+.hero-warmth {
+  opacity: 0;
+}
+.dark .hero-warmth {
+  opacity: 1;
+  background: radial-gradient(
+    55% 75% at 82% 28%,
+    oklch(0.82 0.13 65 / 16%) 0%,
+    transparent 62%
+  );
+}
+
+/* Scroll-in reveal. Hidden state is gated on `.js` (set before paint in BaseLayout)
+   so content stays visible if JS is disabled, and on prefers-reduced-motion so
+   reduced-motion users get no animation. RevealScript adds `.is-visible`. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.3s ease-out,
+      transform 0.3s ease-out;
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
 }

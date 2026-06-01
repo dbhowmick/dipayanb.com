@@ -1,0 +1,108 @@
+---
+import { Image } from "astro:assets";
+import SectionEyebrow from "./SectionEyebrow.astro";
+import bangalore from "../../assets/bangalore.png";
+// Above-the-fold, static HTML. Asymmetric split: constrained text column on the left,
+// the Bangalore skyline bleeding off the right edge past the container. The image is
+// feathered into the page via CSS mask (.hero-art) and warmed by a sunrise glow
+// (.hero-warmth, dark mode). Copy from docs/design.md. <!-- TODO: review copy -->
+---
+
+<section class="relative w-full overflow-hidden border-b border-border">
+  {/* Warm sunrise glow that ties the illustration into the dark page (dark mode only). */}
+  <div class="hero-warmth pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+  {/* Desktop sky wash: the illustration's sky blue swept across the empty left gutter,
+      fading to the page background before the copy — balances the image's weight on the right. */}
+  <div class="hero-skywash pointer-events-none absolute inset-0 hidden lg:block" aria-hidden="true"></div>
+
+  {/* Bangalore skyline — a distinct feathered strip ABOVE the copy on mobile,
+      a right-bleed beside the copy on large screens. It never sits behind the text. */}
+  <div
+    class="hero-art pointer-events-none relative h-56 w-full sm:h-72 lg:absolute lg:inset-y-0 lg:right-0 lg:h-full lg:w-[60%] lg:opacity-65"
+  >
+    <Image
+      src={bangalore}
+      alt="Illustrated Bangalore skyline — Vidhana Soudha, gardens, the Namma Metro, and the glass towers of the tech district at sunrise"
+      widths={[640, 960, 1280, 1600]}
+      sizes="(min-width: 1024px) 60vw, 100vw"
+      class="h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+
+  <div class="relative mx-auto w-full max-w-[1280px] px-6 py-20 md:py-32 lg:py-48">
+    {/* Negative margin pulls the rail into the left gutter so the copy stays at the
+        container edge (the marker is a visual cue, not a layout column). -ml matches the rail width. */}
+    <div class="relative z-10 flex items-stretch xl:-ml-32">
+      {/* Geo-coordinate marker (Bengaluru) — a mono "engineer tell" that anchors the
+          copy's left edge. Decorative (location is stated in the copy); xl+ only. */}
+      <div
+        class="hidden w-32 shrink-0 flex-col items-center gap-2 pr-10 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground xl:flex"
+        aria-hidden="true"
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        >
+          <circle cx="12" cy="12" r="3.2"></circle>
+          <path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path>
+        </svg>
+        <span class="my-1 block w-px flex-1 bg-border"></span>
+        <span>12.9716° N</span>
+        <span>77.5946° E</span>
+      </div>
+
+      <div class="max-w-[600px]">
+        <div class="reveal"><SectionEyebrow>Working on</SectionEyebrow></div>
+      <h1
+        class="reveal mt-6 max-w-[18ch] font-serif text-[2.75rem] font-medium leading-[1.04] tracking-[-0.02em] md:text-7xl"
+      >
+        I build systems — and the teams that ship them.
+      </h1>
+      <p class="reveal mt-7 max-w-[560px] text-lg leading-[1.6] text-muted-foreground md:text-xl">
+        18 years across data infra, dev tools, and AI.
+      </p>
+      <div class="reveal mt-10 flex flex-wrap items-center gap-3">
+        <a
+          href="/resume"
+          class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        >
+          Resume ↗
+        </a>
+        <a
+          href="/work"
+          class="inline-flex h-11 items-center justify-center rounded-md border border-border bg-transparent px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+        >
+          View work
+        </a>
+      </div>
+      <p
+        class="reveal mt-10 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground"
+      >
+        <svg
+          aria-hidden="true"
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        Based in Bengaluru, India
+      </p>
+      </div>
+    </div>
+  </div>
+</section>

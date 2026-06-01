@@ -1,0 +1,26 @@
+---
+// Layout primitive for the bordered grid:
+//   - the full-width <section> carries the full-viewport-width bottom rule (`bottom`)
+//   - the centered inner container carries the vertical rails (`rails`) that constrain
+//     content to the container width.
+// The hero opts out of rails (rails={false}); the closing CTA opts out of the bottom
+// rule (bottom={false}, the footer's top border provides that line).
+interface Props {
+  rails?: boolean;
+  bottom?: boolean;
+  class?: string;
+}
+const { rails = true, bottom = true, class: cls = "" } = Astro.props;
+---
+
+<section class:list={["w-full", bottom && "border-b border-border"]}>
+  <div
+    class:list={[
+      "mx-auto w-full max-w-[1280px] px-6",
+      rails && "border-x border-border",
+      cls,
+    ]}
+  >
+    <slot />
+  </div>
+</section>

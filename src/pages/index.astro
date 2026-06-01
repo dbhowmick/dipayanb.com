@@ -1,46 +1,64 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Button } from "@meldui/vue";
+import Hero from "../components/astro/Hero.astro";
+import StatsBar from "../components/astro/StatsBar.astro";
+import Statement from "../components/astro/Statement.astro";
+import Section from "../components/astro/Section.astro";
+import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
+import ProjectGrid from "../components/astro/ProjectGrid.astro";
+import WritingList from "../components/astro/WritingList.astro";
+import RevealScript from "../components/astro/RevealScript.astro";
+
+const featuredProjects = (await getCollection("projects"))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => b.data.year - a.data.year)
+  .slice(0, 3);
+
+const latestPosts = (await getCollection("posts"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
 ---
 
 <BaseLayout>
-  <main class="mx-auto max-w-[1120px] px-6 py-24">
-    <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
-      Phase 0 · scaffold
-    </p>
-    <h1 class="mt-4 max-w-[20ch] font-serif text-5xl font-medium tracking-[-0.02em] md:text-6xl">
-      I build systems — and the teams that ship them.
-    </h1>
-    <p class="mt-6 max-w-[680px] text-lg text-muted-foreground">
-      Toolchain check: this heading is <span class="text-foreground">Fraunces</span>, this
-      paragraph is <span class="text-foreground">Geist</span>, and the label above is
-      <span class="text-foreground">Geist Mono</span>.
-    </p>
+  <Hero />
 
-    {/* Static chrome pattern: server-rendered, no JS. Plain HTML styled with MeldUI tokens.
-        Use this for non-interactive links/buttons across the site. */}
-    <div class="mt-8 flex flex-wrap items-center gap-3">
-      <a
-        href="#"
-        class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-      >
-        View work
-      </a>
-      <a
-        href="#"
-        class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
-      >
-        Resume
-      </a>
+  <StatsBar />
+
+  <Statement />
+
+  <Section class="py-24 md:py-40">
+    <SectionEyebrow>Selected Work</SectionEyebrow>
+    <div class="mt-10">
+      <ProjectGrid projects={featuredProjects} />
     </div>
+  </Section>
 
-    {/* Island pattern: MeldUI Vue components are client:only (they don't SSR under
-        the workerd dev runtime). Interactive UI (forms, etc.) uses this. */}
-    <div class="mt-10 border-t border-border pt-6">
-      <p class="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
-        MeldUI island (client:only)
+  <Section class="py-24 md:py-40">
+    <SectionEyebrow>Recent Writing</SectionEyebrow>
+    <div class="mt-10">
+      <WritingList posts={latestPosts} />
+    </div>
+  </Section>
+
+  {/* Closing CTA — no bottom rule; the footer's full-width top border provides that line. */}
+  <Section bottom={false} class="py-28 text-center md:py-40">
+    <div class="reveal">
+      <h2 class="mx-auto max-w-[16ch] font-serif text-4xl font-medium tracking-[-0.02em] md:text-6xl">
+        Let's build something durable.
+      </h2>
+      <p class="mx-auto mt-5 max-w-[480px] text-base leading-[1.6] text-muted-foreground md:text-lg">
+        Open to founder conversations, advisory, and the occasional good problem.
       </p>
-      <Button client:only="vue">Hydrated MeldUI Button</Button>
+      <a
+        href="/contact"
+        class="mt-8 inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        Get in touch
+      </a>
     </div>
-  </main>
+  </Section>
+
+  <RevealScript />
 </BaseLayout>
