@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/astro/Section.astro";
+import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
+import RevealScript from "../components/astro/RevealScript.astro";
+import {
+    PDF_URL,
+    intro,
+    stats,
+    experience,
+    earlier,
+    skills,
+    education,
+    certifications,
+} from "../data/cv";
+---
+
+<BaseLayout
+    title="Work · Dipayan Bhowmick"
+    description="Eighteen years building AI and data products: Altimate AI, Cyware, Acceldata, Hortonworks, Flipkart and earlier."
+>
+    {/* ── Header ─────────────────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <div class="reveal"><SectionEyebrow>Experience</SectionEyebrow></div>
+        <h1
+            class="reveal mt-6 max-w-[18ch] text-balance font-serif text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-5xl"
+        >
+            From zero to revenue, more than once.
+        </h1>
+        <p
+            class="reveal mt-7 max-w-[68ch] text-lg leading-[1.65] text-muted-foreground"
+        >
+            {intro}
+        </p>
+        <div class="reveal mt-9">
+            <a
+                href={PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+                Download CV ↗
+            </a>
+        </div>
+    </Section>
+
+    {/* ── Stats strip ────────────────────────────────────────── */}
+    <Section class="py-8">
+        <dl
+            class="reveal grid grid-cols-1 divide-y divide-border md:grid-cols-4 md:divide-x md:divide-y-0"
+        >
+            {
+                stats.map((stat) => (
+                    <div class="flex flex-col gap-1 py-3 md:px-6 md:py-0 md:first:pl-0">
+                        <dt class="font-mono text-sm text-foreground">
+                            {stat.metric}
+                        </dt>
+                        <dd class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                            {stat.label}
+                        </dd>
+                    </div>
+                ))
+            }
+        </dl>
+    </Section>
+
+    {/* ── Experience timeline ────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>Where I've built</SectionEyebrow>
+
+        <div class="mt-4 divide-y divide-border">
+            {
+                experience.map((role) => (
+                    <article class="reveal grid gap-5 py-10 md:grid-cols-[210px_1fr] md:gap-12 md:py-12">
+                        {/* meta rail */}
+                        <div class="flex flex-col gap-1">
+                            <p class="font-mono text-xs uppercase tracking-[0.08em] text-foreground">
+                                {role.start} – {role.end}
+                            </p>
+                            <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                                {role.location}
+                            </p>
+                            {role.note && (
+                                <p class="mt-1 inline-flex w-fit items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
+                                    <span class="h-1.5 w-1.5 rounded-full bg-muted-foreground/50" />
+                                    {role.note}
+                                </p>
+                            )}
+                        </div>
+
+                        {/* content */}
+                        <div>
+                            <h2 class="font-serif text-2xl font-medium tracking-[-0.01em] text-orange-600 dark:text-orange-500 md:text-3xl">
+                                {role.company}
+                            </h2>
+                            <p class="mt-2 text-base font-medium text-foreground">
+                                {role.title}
+                            </p>
+
+                            {/* Lead statement — larger and brighter than the detail bullets below. */}
+                            <p class="mt-5 max-w-[60ch] text-lg leading-[1.6] text-foreground/80">
+                                {role.summary}
+                            </p>
+
+                            {/* Detail — smaller, muted, and set off by a hairline so it reads as
+                  supporting specifics rather than competing with the lead above. */}
+                            <ul class="mt-7 flex flex-col gap-3 border-t border-border/60 pt-6">
+                                {role.highlights.map((h) => (
+                                    <li class="flex gap-3 text-sm leading-[1.6] text-muted-foreground">
+                                        <span class="mt-[0.5em] h-1.5 w-1.5 shrink-0 rounded-full bg-orange-600/70 dark:bg-orange-500/70" />
+                                        <span>{h}</span>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <ul class="mt-7 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs uppercase tracking-[0.06em] text-muted-foreground">
+                                {role.skills.map((s) => (
+                                    <li>{s}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </Section>
+
+    {/* ── Earlier experience ─────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>Earlier</SectionEyebrow>
+
+        <div class="mt-4 divide-y divide-border">
+            {
+                earlier.map((role) => (
+                    <div class="reveal grid gap-2 py-6 md:grid-cols-[210px_1fr] md:items-baseline md:gap-12">
+                        <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                            {role.start} – {role.end}
+                        </p>
+                        <div>
+                            <h3 class="font-serif text-lg font-medium tracking-[-0.01em]">
+                                {role.title}
+                                <span class="text-muted-foreground">
+                                    {" "}
+                                    · {role.company}
+                                </span>
+                            </h3>
+                            {role.detail && (
+                                <p class="mt-1 max-w-[64ch] text-sm leading-[1.6] text-muted-foreground">
+                                    {role.detail}
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </Section>
+
+    {/* ── Skills ─────────────────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>Skills</SectionEyebrow>
+
+        <div class="mt-10 grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
+            {
+                skills.map((group) => (
+                    <div class="reveal">
+                        <h3 class="font-mono text-xs uppercase tracking-[0.08em] text-foreground">
+                            {group.label}
+                        </h3>
+                        <ul class="mt-3 flex flex-wrap gap-2">
+                            {group.items.map((item) => (
+                                <li class="rounded-md border border-border bg-card px-3 py-1 text-sm text-muted-foreground">
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+        </div>
+    </Section>
+
+    {/* ── Education + Certifications ──────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <div class="grid grid-cols-1 gap-12 md:grid-cols-2">
+            <div class="reveal">
+                <SectionEyebrow>Education</SectionEyebrow>
+                <div class="mt-6">
+                    <h3
+                        class="font-serif text-xl font-medium tracking-[-0.01em]"
+                    >
+                        {education.school}
+                    </h3>
+                    <p class="mt-1 text-sm text-foreground">
+                        {education.degree}
+                    </p>
+                    <p
+                        class="mt-2 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground"
+                    >
+                        {education.start} – {education.end}
+                    </p>
+                    <p class="mt-2 text-sm text-muted-foreground">
+                        {education.detail}
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <SectionEyebrow>Certifications & Affiliations</SectionEyebrow>
+                <ul class="mt-6 flex flex-col gap-5">
+                    {
+                        certifications.map((cert) => (
+                            <li>
+                                <p class="font-serif text-lg font-medium tracking-[-0.01em]">
+                                    {cert.name}
+                                </p>
+                                <p class="mt-1 text-sm text-muted-foreground">
+                                    {cert.issuer}
+                                </p>
+                                <p class="mt-1 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+                                    {cert.period}
+                                </p>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+    </Section>
+
+    {/* ── Closing CTA ────────────────────────────────────────── */}
+    {
+        /* No bottom rule — the footer's full-width top border provides that line. */
+    }
+    <Section bottom={false} class="py-24 text-center md:py-32">
+        <div class="reveal">
+            <h2
+                class="mx-auto max-w-7xl font-serif text-3xl font-medium tracking-[-0.02em] md:text-5xl"
+            >
+                Want the one-page version?
+            </h2>
+            <p
+                class="mx-auto mt-5 max-w-7xl text-base leading-[1.6] text-muted-foreground md:text-lg"
+            >
+                The full CV as a PDF. Same story, just denser.
+            </p>
+            {
+                /* TODO (Phase 3+): swap this direct link for the gated CvDownloadForm island
+          (Turnstile + honeypot → D1 + Resend). The PDF stays at this public URL. */
+            }
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <a
+                    href={PDF_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                    Download CV ↗
+                </a>
+                <a
+                    href="/contact"
+                    class="inline-flex h-11 items-center justify-center rounded-md border border-border bg-transparent px-6 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+                >
+                    Get in touch
+                </a>
+            </div>
+        </div>
+    </Section>
+
+    <RevealScript />
+</BaseLayout>
