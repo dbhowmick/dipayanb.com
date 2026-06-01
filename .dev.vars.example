@@ -1,5 +1,15 @@
 # Local-only secrets for `astro dev` / `wrangler dev` (Cloudflare reads .dev.vars).
-# Copy to `.dev.vars` and fill in. Never commit the real file. Used from Phase 4 onward.
-# RESEND_API_KEY=
-# TURNSTILE_SECRET_KEY=
-# OWNER_EMAIL=
+# Copy to `.dev.vars` and fill in. Never commit the real file.
+#
+# The contact form works locally with NO setup: the widget defaults to Turnstile's
+# always-passes test site key, and email is skipped when RESEND_API_KEY is unset
+# (the submission is still validated and written to the local D1).
+#
+# To exercise the full path locally, use Cloudflare's documented test keys:
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+# RESEND_API_KEY=re_xxxxxxxx           # real key required to actually send mail
+#
+# OWNER_EMAIL is set as a plain var in wrangler.jsonc, not a secret.
+#
+# For PRODUCTION instead: a real Turnstile secret, a real Resend key, and set
+# PUBLIC_TURNSTILE_SITE_KEY (build env / .env) to the matching real site key.

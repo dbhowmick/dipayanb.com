@@ -2,7 +2,21 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "dipayanb-site",
   "compatibility_date": "2025-06-01",
-  "compatibility_flags": ["nodejs_compat"]
-  // D1 binding (DB) is added in Phase 3:
-  // "d1_databases": [{ "binding": "DB", "database_name": "dipayanb-site", "database_id": "<id>" }]
+  "compatibility_flags": ["nodejs_compat"],
+  // D1 form storage. Local dev auto-wires a SQLite store from `database_name`;
+  // for the FIRST remote deploy, run `wrangler d1 create dipayanb-site` and paste
+  // the returned id over PLACEHOLDER below, then apply migrations --remote.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dipayanb-site",
+      "database_id": "7de37b56-4c14-4eb9-a473-16957235b942",
+      "migrations_dir": "migrations",
+    },
+  ],
+  // Non-secret var. Secrets (RESEND_API_KEY, TURNSTILE_SECRET_KEY) come from
+  // .dev.vars locally and `wrangler secret put` in production.
+  "vars": {
+    "OWNER_EMAIL": "me@dipayanb.com",
+  },
 }
