@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import SectionEyebrow from "./SectionEyebrow.astro";
+import Icon from "./Icon.astro";
 import bangalore from "../../assets/bangalore.png";
 // Above-the-fold, static HTML. Asymmetric split: constrained text column on the left,
 // the Bangalore skyline bleeding off the right edge past the container. The image is
@@ -102,6 +103,34 @@ import bangalore from "../../assets/bangalore.png";
         </svg>
         Based in Bengaluru, India
       </p>
+
+      <div class="reveal mt-6 flex items-center gap-5 text-muted-foreground">
+        <a
+          href="https://www.linkedin.com/in/dipayan-bhowmick/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="transition-colors hover:text-foreground"
+        >
+          <Icon name="linkedin" />
+        </a>
+        <a
+          href="https://github.com/dbhowmick"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="transition-colors hover:text-foreground"
+        >
+          <Icon name="github" />
+        </a>
+        <a
+          href="mailto:me@dipayanb.com"
+          aria-label="Email"
+          class="transition-colors hover:text-foreground"
+        >
+          <Icon name="mail" />
+        </a>
+      </div>
       </div>
     </div>
   </div>

@@ -8,11 +8,13 @@ const projects = defineCollection({
   schema: z.object({
     name: z.string(),
     summary: z.string(),
-    role: z.string(),
+    role: z.string().optional(),
     stack: z.array(z.string()),
     url: z.string().url().optional(),
     repo: z.string().url().optional(),
-    year: z.number().int(),
+    status: z.string().optional(), // e.g. "In progress"
+    year: z.number().int().optional(),
+    order: z.number().optional(), // display order on the home grid
     featured: z.boolean().default(false),
   }),
 });

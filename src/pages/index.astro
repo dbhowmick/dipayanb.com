@@ -5,16 +5,11 @@ import Hero from "../components/astro/Hero.astro";
 import StatsBar from "../components/astro/StatsBar.astro";
 import Statement from "../components/astro/Statement.astro";
 import Companies from "../components/astro/Companies.astro";
+import Projects from "../components/astro/Projects.astro";
 import Section from "../components/astro/Section.astro";
 import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
-import ProjectGrid from "../components/astro/ProjectGrid.astro";
 import WritingList from "../components/astro/WritingList.astro";
 import RevealScript from "../components/astro/RevealScript.astro";
-
-const featuredProjects = (await getCollection("projects"))
-  .filter((p) => p.data.featured)
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 3);
 
 const latestPosts = (await getCollection("posts"))
   .filter((p) => !p.data.draft)
@@ -31,12 +26,7 @@ const latestPosts = (await getCollection("posts"))
 
   <Companies />
 
-  <Section class="py-24 md:py-40">
-    <SectionEyebrow>Selected Work</SectionEyebrow>
-    <div class="mt-10">
-      <ProjectGrid projects={featuredProjects} />
-    </div>
-  </Section>
+  <Projects />
 
   <Section class="py-24 md:py-40">
     <SectionEyebrow>Recent Writing</SectionEyebrow>
