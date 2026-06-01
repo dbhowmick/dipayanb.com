@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/astro/Hero.astro";
 import StatsBar from "../components/astro/StatsBar.astro";
 import Statement from "../components/astro/Statement.astro";
+import Companies from "../components/astro/Companies.astro";
 import Section from "../components/astro/Section.astro";
 import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
 import ProjectGrid from "../components/astro/ProjectGrid.astro";
@@ -27,6 +28,8 @@ const latestPosts = (await getCollection("posts"))
   <StatsBar />
 
   <Statement />
+
+  <Companies />
 
   <Section class="py-24 md:py-40">
     <SectionEyebrow>Selected Work</SectionEyebrow>

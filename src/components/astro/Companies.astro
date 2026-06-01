@@ -1,0 +1,98 @@
+---
+import Section from "./Section.astro";
+import SectionEyebrow from "./SectionEyebrow.astro";
+import type { ImageMetadata } from "astro";
+import altimate from "../../assets/logos/altimate-ai.svg";
+import acceldata from "../../assets/logos/acceldata.svg";
+import cyware from "../../assets/logos/cyware.svg";
+import hortonworks from "../../assets/logos/hortonworks.svg";
+import flipkart from "../../assets/logos/flipkart.svg";
+import oracle from "../../assets/logos/oracle.svg";
+
+// "Where I've worked" — a customers-style logo wall. Logos render grayscale and go to
+// full colour on hover; each box links to the matching role in the work history (built later).
+// <!-- TODO: confirm hrefs once /work exists -->
+interface Company {
+    name: string;
+    slug: string;
+    logo?: ImageMetadata;
+    size?: string; // per-logo size override (Tailwind max-h/max-w) for visual balance
+    fx?: string; // per-logo filter override (defaults to grayscale→colour, inverted in dark)
+    chip?: boolean; // sit the logo on a dark chip (for white-on-dark marks like Cyware)
+}
+
+// Default size cap; blockier logos can override via `size` so all marks feel even.
+const defaultSize = "max-h-9 max-w-[170px] md:max-h-11 md:max-w-[200px]";
+// Default treatment: grayscale at rest → colour on hover; inverted in dark so dark marks stay visible.
+const defaultFx =
+    "opacity-70 grayscale group-hover:opacity-100 group-hover:grayscale-0 dark:invert dark:group-hover:invert-0";
+
+const companies: Company[] = [
+    { name: "Altimate AI", slug: "altimate-ai", logo: altimate },
+    { name: "Acceldata", slug: "acceldata", logo: acceldata },
+    {
+        name: "Cyware",
+        slug: "cyware",
+        logo: cyware,
+        // White wordmark built for a dark bg — sit it on a dark chip and skip the dark-mode invert.
+        chip: true,
+        fx: "opacity-90 grayscale group-hover:opacity-100 group-hover:grayscale-0",
+    },
+    {
+        name: "Hortonworks",
+        slug: "hortonworks",
+        logo: hortonworks,
+        size: "max-h-12 max-w-[150px] md:max-h-14 md:max-w-[180px]",
+    },
+    {
+        name: "Flipkart",
+        slug: "flipkart",
+        logo: flipkart,
+        size: "max-h-11 max-w-[150px] md:max-h-12 md:max-w-[180px]",
+    },
+    { name: "Oracle", slug: "oracle", logo: oracle },
+];
+---
+
+<Section class="py-16 md:py-24">
+    <SectionEyebrow>Where I've worked</SectionEyebrow>
+
+    {
+        /* Full-bleed to the rails (-mx-6) so the section reads as a grid of boxes.
+      gap-px over bg-border draws the internal hairlines; border-y closes the band. */
+    }
+    <div
+        class="-mx-6 mt-8 grid grid-cols-2 gap-px border-y border-border bg-border md:grid-cols-3"
+    >
+        {
+            companies.map((c) => (
+                <a
+                    href={`/work#${c.slug}`}
+                    class="group flex min-h-[120px] items-center justify-center bg-muted p-8 transition-colors hover:bg-background md:min-h-[150px]"
+                    aria-label={c.name}
+                >
+                    {c.logo ? (
+                        <span
+                            class:list={[
+                                "flex items-center justify-center",
+                                c.chip && "rounded-lg bg-zinc-900 px-5 py-3",
+                            ]}
+                        >
+                            <img
+                                src={c.logo.src}
+                                alt={c.name}
+                                loading="lazy"
+                                decoding="async"
+                                class={`w-auto object-contain transition duration-200 ${c.fx ?? defaultFx} ${c.size ?? defaultSize}`}
+                            />
+                        </span>
+                    ) : (
+                        <span class="font-sans text-lg font-semibold tracking-tight text-muted-foreground transition-colors group-hover:text-foreground md:text-xl">
+                            {c.name}
+                        </span>
+                    )}
+                </a>
+            ))
+        }
+    </div>
+</Section>
