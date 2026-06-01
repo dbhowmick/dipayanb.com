@@ -3,9 +3,10 @@ import type { CollectionEntry } from "astro:content";
 
 interface Props {
   posts: CollectionEntry<"posts">[];
+  showTags?: boolean;
 }
 
-const { posts } = Astro.props;
+const { posts, showTags = false } = Astro.props;
 
 // "YYYY · MM" mono date, derived from pubDate.
 const formatDate = (d: Date) =>
@@ -30,6 +31,15 @@ const formatDate = (d: Date) =>
             <span class="text-sm leading-[1.6] text-muted-foreground">
               {post.data.description}
             </span>
+            {showTags && post.data.tags.length > 0 && (
+              <span class="mt-1 flex flex-wrap gap-2">
+                {post.data.tags.map((tag) => (
+                  <span class="rounded-md border border-border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                    {tag}
+                  </span>
+                ))}
+              </span>
+            )}
           </span>
         </a>
       </li>

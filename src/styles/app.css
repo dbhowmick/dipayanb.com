@@ -2,6 +2,11 @@
 @import "tw-animate-css";
 @import "@meldui/vue/themes/default";
 
+/* Long-form post body (/writing/[id]). v4 CSS-first plugin registration — gives the
+   `prose` classes. Voice overrides (Fraunces headings, orange links) are applied as
+   prose-* modifiers on the article in the page, not here. */
+@plugin "@tailwindcss/typography";
+
 /* Dark-first re-skin (default.com-inspired). Deepen + neutralize the dark surface
    away from MeldUI's blue-tinted slate toward a premium near-black. Single post-import
    token override (sanctioned by docs/design.md). Light mode rides MeldUI defaults. */

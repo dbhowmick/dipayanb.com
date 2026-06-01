@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/astro/Section.astro";
+import RevealScript from "../../components/astro/RevealScript.astro";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("posts")).filter((p) => !p.data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, tags } = post.data;
+
+const formatLong = (d: Date) =>
+  d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+
+// Reading time from the raw markdown body (~200 wpm).
+const words = post.body?.trim().split(/\s+/).filter(Boolean).length ?? 0;
+const readingTime = Math.max(1, Math.round(words / 200));
+---
+
+<BaseLayout title={`${title} · Dipayan Bhowmick`} description={description}>
+  {/* Single 680px prose column; the footer's top border closes the page. */}
+  <Section bottom={false} class="py-20 md:py-28">
+    <article class="mx-auto max-w-[680px]">
+      <header>
+        <p
+          class="reveal flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground"
+        >
+          <time datetime={pubDate.toISOString()}>{formatLong(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{readingTime} min read</span>
+        </p>
+        <h1
+          class="reveal mt-5 text-balance font-serif text-4xl font-medium leading-[1.1] tracking-[-0.02em] md:text-5xl"
+        >
+          {title}
+        </h1>
+        <p class="reveal mt-5 text-lg leading-[1.6] text-muted-foreground">
+          {description}
+        </p>
+        {
+          tags.length > 0 && (
+            <ul class="reveal mt-6 flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <li class="rounded-md border border-border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-muted-foreground">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </header>
+
+      {/* Long-form body. prose plugin + site-voice modifiers (Fraunces headings,
+          orange links). Body font inherits Geist from <body>. */}
+      <div
+        class="reveal mt-12 max-w-none prose prose-neutral dark:prose-invert prose-headings:font-serif prose-headings:font-medium prose-headings:tracking-[-0.01em] prose-a:font-normal prose-a:text-orange-600 prose-a:underline-offset-2 dark:prose-a:text-orange-500"
+      >
+        <Content />
+      </div>
+
+      {
+        updatedDate && (
+          <p class="mt-12 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+            Updated {formatLong(updatedDate)}
+          </p>
+        )
+      }
+
+      <footer class="mt-16 border-t border-border pt-8">
+        <a
+          href="/writing"
+          class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          ← All writing
+        </a>
+      </footer>
+    </article>
+  </Section>
+
+  <RevealScript />
+</BaseLayout>

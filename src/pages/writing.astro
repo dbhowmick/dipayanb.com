@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/astro/Section.astro";
+import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
+import WritingList from "../components/astro/WritingList.astro";
+import RevealScript from "../components/astro/RevealScript.astro";
+
+const posts = (await getCollection("posts"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Writing · Dipayan Bhowmick"
+  description="Essays on data infrastructure, developer tools, AI systems, and what it takes to ship them."
+>
+  {/* Single section; the footer's top border closes the page (bottom={false}). */}
+  <Section bottom={false} class="py-20 md:py-28">
+    <div class="reveal"><SectionEyebrow>Writing</SectionEyebrow></div>
+    <h1
+      class="reveal mt-6 max-w-[18ch] text-balance font-serif text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-5xl"
+    >
+      Notes from the build.
+    </h1>
+    <p class="reveal mt-7 max-w-[60ch] text-lg leading-[1.65] text-muted-foreground">
+      Essays on data infrastructure, developer tools, AI systems, and the
+      occasional lesson from shipping them.
+    </p>
+
+    <div class="reveal mt-12">
+      <WritingList posts={posts} showTags />
+    </div>
+  </Section>
+
+  <RevealScript />
+</BaseLayout>
