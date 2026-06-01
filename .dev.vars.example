@@ -1,0 +1,5 @@
+# Local-only secrets for `astro dev` / `wrangler dev` (Cloudflare reads .dev.vars).
+# Copy to `.dev.vars` and fill in. Never commit the real file. Used from Phase 4 onward.
+# RESEND_API_KEY=
+# TURNSTILE_SECRET_KEY=
+# OWNER_EMAIL=

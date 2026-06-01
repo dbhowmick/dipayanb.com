@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dipayanb-site",
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": ["nodejs_compat"]
+  // D1 binding (DB) is added in Phase 3:
+  // "d1_databases": [{ "binding": "DB", "database_name": "dipayanb-site", "database_id": "<id>" }]
+}

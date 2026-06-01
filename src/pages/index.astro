@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Button } from "@meldui/vue";
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-[1120px] px-6 py-24">
+    <p class="font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+      Phase 0 · scaffold
+    </p>
+    <h1 class="mt-4 max-w-[20ch] font-serif text-5xl font-medium tracking-[-0.02em] md:text-6xl">
+      I build systems — and the teams that ship them.
+    </h1>
+    <p class="mt-6 max-w-[680px] text-lg text-muted-foreground">
+      Toolchain check: this heading is <span class="text-foreground">Fraunces</span>, this
+      paragraph is <span class="text-foreground">Geist</span>, and the label above is
+      <span class="text-foreground">Geist Mono</span>.
+    </p>
+
+    {/* Static chrome pattern: server-rendered, no JS. Plain HTML styled with MeldUI tokens.
+        Use this for non-interactive links/buttons across the site. */}
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a
+        href="#"
+        class="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        View work
+      </a>
+      <a
+        href="#"
+        class="inline-flex h-9 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+      >
+        Resume
+      </a>
+    </div>
+
+    {/* Island pattern: MeldUI Vue components are client:only (they don't SSR under
+        the workerd dev runtime). Interactive UI (forms, etc.) uses this. */}
+    <div class="mt-10 border-t border-border pt-6">
+      <p class="mb-3 font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground">
+        MeldUI island (client:only)
+      </p>
+      <Button client:only="vue">Hydrated MeldUI Button</Button>
+    </div>
+  </main>
+</BaseLayout>

@@ -1,0 +1,24 @@
+# build output
+dist/
+.astro/
+
+# cloudflare / wrangler
+.wrangler/
+
+# dependencies
+node_modules/
+
+# local secrets
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+
+# generated cloudflare binding types
+worker-configuration.d.ts
+
+# logs & os
+*.log
+.DS_Store

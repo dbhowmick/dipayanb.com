@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@meldui/vue/themes/default";
+
+/* Tailwind v4 content sources (CSS-first config — no tailwind.config.js). */
+@source "../**/*.{astro,vue,js,ts,jsx,tsx,md,mdx}";
+/* Load-bearing: without this, MeldUI components render unstyled. */
+@source "../../node_modules/@meldui/vue/dist/**/*.mjs";
+
+/* Typography tokens — self-hosted via Fontsource (imported in BaseLayout.astro).
+   Fraunces = headings, Geist = body, Geist Mono = labels/meta. */
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", monospace;
+}
