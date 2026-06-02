@@ -1,0 +1,58 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Section from "../../components/astro/Section.astro";
+import SectionEyebrow from "../../components/astro/SectionEyebrow.astro";
+import RevealScript from "../../components/astro/RevealScript.astro";
+import CvDownloadForm from "../../components/vue/CvDownloadForm.vue";
+---
+
+<BaseLayout
+  title="Download CV · Dipayan Bhowmick"
+  description="Download my CV as a PDF. I ask for a name and email so I know who's reading it."
+>
+  {/* No bottom rule — the footer's top border closes the page. */}
+  <Section bottom={false} class="py-20 md:py-28">
+    <div class="reveal"><SectionEyebrow>Resume</SectionEyebrow></div>
+    <h1
+      class="reveal mt-6 max-w-[16ch] text-balance font-serif text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-5xl"
+    >
+      Download my CV.
+    </h1>
+    <p class="reveal mt-7 max-w-[56ch] text-lg leading-[1.65] text-muted-foreground">
+      It's a PDF. I ask for your name and email so I know who's reading it, and
+      I'll only get in touch if there's a real reason to.
+    </p>
+
+    <div class="mt-12 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+      <div class="reveal">
+        <p class="max-w-[42ch] text-base leading-[1.65] text-muted-foreground">
+          It's the same history as the
+          <a
+            href="/work"
+            class="text-foreground underline underline-offset-2 transition-colors hover:text-primary"
+            >work page</a
+          >, as a PDF you can save or print. Would rather skip the form? Email me at
+          <a
+            href="mailto:me@dipayanb.com"
+            class="text-foreground underline underline-offset-2 transition-colors hover:text-primary"
+            >me@dipayanb.com</a
+          >
+          and I'll send it across.
+        </p>
+        <a
+          href="/work"
+          class="mt-8 inline-flex font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground transition-colors hover:text-foreground"
+        >
+          ← Back to work
+        </a>
+      </div>
+
+      {/* client:only — MeldUI/reka-ui can't SSR; forms flash empty briefly (gotcha #11). */}
+      <div class="reveal">
+        <CvDownloadForm client:only="vue" />
+      </div>
+    </div>
+  </Section>
+
+  <RevealScript />
+</BaseLayout>

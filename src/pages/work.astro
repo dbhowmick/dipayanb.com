@@ -4,7 +4,6 @@ import Section from "../components/astro/Section.astro";
 import SectionEyebrow from "../components/astro/SectionEyebrow.astro";
 import RevealScript from "../components/astro/RevealScript.astro";
 import {
-    PDF_URL,
     intro,
     stats,
     experience,
@@ -34,12 +33,10 @@ import {
         </p>
         <div class="reveal mt-9">
             <a
-                href={PDF_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/work/download"
                 class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
             >
-                Download CV ↗
+                Download CV →
             </a>
         </div>
     </Section>
@@ -237,25 +234,19 @@ import {
             <h2
                 class="mx-auto max-w-7xl font-serif text-3xl font-medium tracking-[-0.02em] md:text-5xl"
             >
-                Want the one-page version?
+                Want it as a PDF?
             </h2>
             <p
                 class="mx-auto mt-5 max-w-7xl text-base leading-[1.6] text-muted-foreground md:text-lg"
             >
-                The full CV as a PDF. Same story, just denser.
+                The full CV, the same story as above in a downloadable file.
             </p>
-            {
-                /* TODO (Phase 3+): swap this direct link for the gated CvDownloadForm island
-          (Turnstile + honeypot → D1 + Resend). The PDF stays at this public URL. */
-            }
             <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
                 <a
-                    href={PDF_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/work/download"
                     class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
-                    Download CV ↗
+                    Download CV →
                 </a>
                 <a
                     href="/about#contact"
