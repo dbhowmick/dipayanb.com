@@ -192,7 +192,26 @@ pnpm exec wrangler secret put TURNSTILE_SECRET_KEY    # the REAL secret, not the
 Set `PUBLIC_TURNSTILE_SITE_KEY` (the real **site** key) in the build environment so it's
 inlined when you run `pnpm build`.
 
-### 7. Build and deploy
+### 7. Configure analytics (Umami)
+
+Privacy-friendly analytics via [Umami](https://umami.is). The tracking script is wired into
+`BaseLayout.astro` and is emitted **only in production builds** (so local dev traffic isn't
+counted) and **only when a website id is set**.
+
+1. In Umami, add the site and copy its **Website ID** (dashboard → your website → Settings →
+   Website ID, or the `data-website-id` value in the tracking snippet).
+2. Set `PUBLIC_UMAMI_WEBSITE_ID` in the build environment. It's a `PUBLIC_*` build-time var,
+   inlined at `pnpm build` (same as the Turnstile site key): locally that's `.env`; for
+   Cloudflare Git builds, the dashboard build env.
+3. If your Umami dashboard shows a script host other than `https://cloud.umami.is/script.js`
+   (e.g. `eu.umami.is`), also set `PUBLIC_UMAMI_SRC` to match.
+4. Make sure the website's domain in Umami is `dipayanb.com`, or events get dropped.
+
+Leaving `PUBLIC_UMAMI_WEBSITE_ID` blank disables analytics entirely. To verify before
+deploying: `PUBLIC_UMAMI_WEBSITE_ID=your-id pnpm build && pnpm preview`, load a page, and
+confirm the `script.js` request fires and a pageview appears in Umami.
+
+### 8. Build and deploy
 
 ```bash
 pnpm build
@@ -206,7 +225,7 @@ The first deploy creates the Worker named `dipayanb-site`.
 > Optional: add `"deploy": "astro build && wrangler deploy -c dist/server/wrangler.json"` to
 > `package.json` scripts to make this one command.
 
-### 8. Connect the custom domain
+### 9. Connect the custom domain
 
 Dashboard → **Workers & Pages → dipayanb-site → Settings → Domains & Routes → Add** →
 `dipayanb.com`.
@@ -236,6 +255,8 @@ A healthy submission logs `POST /api/contact - Ok` with **no** `(error)` line.
 | `TURNSTILE_SECRET_KEY`      | secret             | `.dev.vars` (test key)           | `wrangler secret put` | `src/lib/turnstile.ts`  |
 | `RESEND_API_KEY`            | secret             | `.dev.vars` (optional)           | `wrangler secret put` | `src/lib/email.ts`      |
 | `PUBLIC_TURNSTILE_SITE_KEY` | public, build-time | `.env` (optional; test fallback) | build env             | `ContactForm.vue`       |
+| `PUBLIC_UMAMI_WEBSITE_ID`   | public, build-time | `.env` (optional)                | build env             | `BaseLayout.astro`      |
+| `PUBLIC_UMAMI_SRC`          | public, build-time | `.env` (optional)                | build env (optional)  | `BaseLayout.astro`      |
 | `OWNER_EMAIL`               | plain var          | `wrangler.jsonc`                 | `wrangler.jsonc`      | `src/lib/email.ts`      |
 | `NPM_TOKEN`                 | secret             | `~/.npmrc`                       | CI build env          | `pnpm install` (MeldUI) |
 

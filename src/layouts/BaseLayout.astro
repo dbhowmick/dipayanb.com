@@ -16,6 +16,14 @@ const {
   title = "Dipayan Bhowmick",
   description = "Dipayan Bhowmick — engineer and builder. 18 years across data infrastructure, developer tools, and AI.",
 } = Astro.props;
+
+// Umami analytics. Emitted only in production builds (so local dev traffic is not
+// counted) and only when a website id is configured. Set PUBLIC_UMAMI_WEBSITE_ID in
+// the build env; override PUBLIC_UMAMI_SRC if your Umami instance uses a different host.
+const umamiWebsiteId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const umamiSrc =
+  import.meta.env.PUBLIC_UMAMI_SRC ?? "https://cloud.umami.is/script.js";
+const enableAnalytics = import.meta.env.PROD && Boolean(umamiWebsiteId);
 ---
 
 <!doctype html>
@@ -43,6 +51,13 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    {/* Privacy-friendly analytics (Umami). Production builds only; see frontmatter. */}
+    {
+      enableAnalytics && (
+        <script is:inline defer src={umamiSrc} data-website-id={umamiWebsiteId} />
+      )
+    }
   </head>
   <body class="flex min-h-dvh flex-col bg-background text-foreground font-sans antialiased">
     {/* Full-width chrome: header/section bottom rules span the viewport; vertical rails
