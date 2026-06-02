@@ -65,7 +65,7 @@ const readingTime = Math.max(1, Math.round(words / 200));
       {/* Long-form body. prose plugin + site-voice modifiers (Fraunces headings,
           orange links). Body font inherits Geist from <body>. */}
       <div
-        class="reveal mt-12 max-w-none prose prose-neutral dark:prose-invert prose-headings:font-serif prose-headings:font-medium prose-headings:tracking-[-0.01em] prose-a:font-normal prose-a:text-orange-600 prose-a:underline-offset-2 dark:prose-a:text-orange-500"
+        class="reveal mt-12 max-w-none prose prose-neutral dark:prose-invert [--tw-prose-body:var(--muted-foreground)] dark:[--tw-prose-invert-body:var(--muted-foreground)] prose-headings:font-serif prose-headings:font-medium prose-headings:tracking-[-0.01em] prose-a:font-normal prose-a:text-orange-600 prose-a:underline-offset-2 dark:prose-a:text-orange-500"
       >
         <Content />
       </div>

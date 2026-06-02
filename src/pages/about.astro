@@ -8,185 +8,207 @@ import ContactForm from "../components/vue/ContactForm.vue";
 
 // <!-- TODO: review copy -->
 const principles = [
-  {
-    title: "I like owning the whole picture.",
-    body: "Not just the code. The problems I find most interesting sit where the engineering, the team, and the customer overlap, and I would rather work across all three than stay in one.",
-  },
-  {
-    title: "Ship in small pieces.",
-    body: "Long release cycles hide problems until they get expensive. I push teams toward shorter ones so we find out what is wrong while it is still cheap to fix.",
-  },
-  {
-    title: "Match the process to the team.",
-    body: "A team of twenty needs some structure. It does not need the structure of a team of two hundred. I try to add just enough and then stop.",
-  },
-  {
-    title: "Hire well, then step back.",
-    body: "Most of what I am proud of is the people I hired, not the code I wrote. I look for people better than me and try to stay out of their way.",
-  },
-  {
-    title: "Prefer simple over clever.",
-    body: "I would rather run a system that is easy to understand than one that looks impressive in a review. Clever usually turns into hard to operate.",
-  },
-  {
-    title: "Stay close to the work.",
-    body: "I read the code, use the product, and stay near the hard problems. Managing from a distance has never worked for me.",
-  },
+    {
+        title: "I like owning the whole picture.",
+        body: "Not just the code. The problems I find most interesting sit where the engineering, the team, and the customer overlap, and I would rather work across all three than stay in one.",
+    },
+    {
+        title: "Ship in small pieces.",
+        body: "Long release cycles hide problems until they get expensive. I push teams toward shorter ones so we find out what is wrong while it is still cheap to fix.",
+    },
+    {
+        title: "Match the process to the team.",
+        body: "A team of twenty needs some structure. It does not need the structure of a team of two hundred. I try to add just enough and then stop.",
+    },
+    {
+        title: "Hire well, then step back.",
+        body: "Most of what I am proud of is the people I hired, not the code I wrote. I look for people better than me and try to stay out of their way.",
+    },
+    {
+        title: "Prefer simple over clever.",
+        body: "I would rather run a system that is easy to understand than one that looks impressive in a review. Clever usually turns into hard to operate.",
+    },
+    {
+        title: "Stay close to the work.",
+        body: "I read the code, use the product, and stay near the hard problems. Managing from a distance has never worked for me.",
+    },
 ];
 
 const socials = [
-  { name: "linkedin" as const, label: "LinkedIn", href: "https://www.linkedin.com/in/dipayan-bhowmick/" },
-  { name: "github" as const, label: "GitHub", href: "https://github.com/dbhowmick" },
-  { name: "mail" as const, label: "Email", href: "mailto:me@dipayanb.com" },
+    {
+        name: "linkedin" as const,
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/in/dipayan-bhowmick/",
+    },
+    {
+        name: "github" as const,
+        label: "GitHub",
+        href: "https://github.com/dbhowmick",
+    },
+    { name: "mail" as const, label: "Email", href: "mailto:me@dipayanb.com" },
 ];
 ---
 
 <BaseLayout
-  title="About · Dipayan Bhowmick"
-  description="The longer version: how I got from open-source infrastructure to building AI products, how I work, and how to reach me."
+    title="About · Dipayan Bhowmick"
+    description="The longer version: how I got from open-source infrastructure to building AI products, how I work, and how to reach me."
 >
-  {/* ── Header ─────────────────────────────────────────────── */}
-  <Section class="py-20 md:py-28">
-    <div class="reveal"><SectionEyebrow>About</SectionEyebrow></div>
-    <h1
-      class="reveal mt-6 max-w-[16ch] text-balance font-serif text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-5xl"
-    >
-      How I got here.
-    </h1>
-    <p class="reveal mt-7 max-w-[60ch] text-lg leading-[1.65] text-muted-foreground">
-      I build AI and data products and lead the teams that build them. The work
-      page has the timeline and the numbers. This is the rest of it.
-    </p>
-  </Section>
+    {/* ── Header ─────────────────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <div class="reveal"><SectionEyebrow>About</SectionEyebrow></div>
+        <h1
+            class="reveal mt-6 max-w-[16ch] text-balance font-serif text-4xl font-medium leading-[1.08] tracking-[-0.02em] md:text-5xl"
+        >
+            How I got here.
+        </h1>
+        <p
+            class="reveal mt-7 max-w-[60ch] text-lg leading-[1.65] text-muted-foreground"
+        >
+            I build AI and data products and lead the teams that build them. The
+            work page has the dates and the numbers. This is the rest.
+        </p>
+    </Section>
 
-  {/* ── Career arc narrative ───────────────────────────────── */}
-  <Section class="py-20 md:py-28">
-    <SectionEyebrow>The arc</SectionEyebrow>
-    <div
-      class="reveal mt-8 flex max-w-[68ch] flex-col gap-6 text-lg leading-[1.7] text-foreground/85"
-    >
-      <p>
-        I spent the early part of my career in distributed systems. At
-        Hortonworks I worked on Apache Ambari, which installs and operates
-        Hadoop clusters, and became a committer on the project. The clusters we
-        supported ran into the thousands of nodes, so most of the work was about
-        keeping operations sane at that size.
-      </p>
-      <p>
-        Just before that I was at Flipkart, on the order-management services
-        behind checkout and fulfilment. At peak we handled around half a million
-        orders a day. That is where I got used to things breaking at scale and
-        having to fix them while everyone was watching.
-      </p>
-      <p>
-        The job I learned the most from was Acceldata. I joined as the second
-        employee, before there was a product, just an idea about data
-        observability. Over about four years we grew it to roughly $4M in ARR
-        with eight or so Fortune 500 customers. I did the early architecture,
-        then spent more and more time hiring, running the team as it went from
-        two of us to twenty, and helping close deals. I had not done much
-        selling before that, and it changed how I think about building.
-      </p>
-      <p>
-        More recently I led engineering and set up the India team at Altimate
-        AI. We were building AI agents for data work, the kind meant to go and
-        do a task across your tools and your warehouse rather than just answer
-        questions. A lot of my time went into the memory layer and into getting
-        the agents to read SQL and warehouses correctly, which is harder than it
-        sounds.
-      </p>
-      <p>
-        Right now I am working on my own projects and talking to a few people
-        about what comes next. I still write code most days.
-      </p>
-    </div>
-  </Section>
-
-  {/* ── How I work ─────────────────────────────────────────── */}
-  <Section class="py-20 md:py-28">
-    <SectionEyebrow>How I work</SectionEyebrow>
-
-    {/* Full-bleed hairline grid, same treatment as the projects / companies walls.
-        gap-px over bg-border draws the internal hairlines; border-y closes the band. */}
-    <div
-      class="-mx-6 mt-8 grid grid-cols-1 gap-px border-y border-border bg-border sm:grid-cols-2 md:grid-cols-3"
-    >
-      {
-        principles.map((p, i) => (
-          <div class="group flex min-h-[200px] flex-col bg-muted p-8 transition-colors hover:bg-background md:p-10">
-            <span class="font-mono text-xs text-muted-foreground">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <h3 class="mt-4 font-serif text-xl font-medium tracking-[-0.01em] md:text-2xl">
-              {p.title}
-            </h3>
-            <p class="mt-3 text-sm leading-[1.6] text-muted-foreground">
-              {p.body}
+    {/* ── Career arc narrative ───────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>The arc</SectionEyebrow>
+        <div
+            class="reveal mt-8 flex max-w-[68ch] flex-col gap-6 text-lg leading-[1.7] text-muted-foreground"
+        >
+            <p>
+                I started out in distributed systems. At Hortonworks I worked on
+                Apache Ambari, the tool that installs and runs Hadoop clusters,
+                and became a committer on the project. Our clusters ran into the
+                thousands of nodes, so the job was mostly keeping operations sane
+                at that scale.
             </p>
-          </div>
-        ))
-      }
-    </div>
-  </Section>
+            <p>
+                Just before that, Flipkart, on the order-management services
+                behind checkout. At peak they took half a million orders a day.
+                That is where I learned to keep things running when they break in
+                production.
+            </p>
+            <p>
+                I learned the most at Acceldata. I was employee number two, there
+                before the product, when data observability was just an idea.
+                Over four years we took it to $4M in ARR across eight Fortune 500
+                customers. I built the early architecture, then spent more time
+                hiring, growing the team from two of us to twenty, and sitting in
+                on sales calls. I hadn't sold anything before, and it changed how
+                I build.
+            </p>
+            <p>
+                Most recently, Altimate AI, where I led engineering and set up the
+                India team. We built AI agents for data work: ones that go and do
+                a task across your tools and your warehouse, not chatbots that
+                answer questions. Most of my time went into the agents' memory and
+                into getting them to read SQL and warehouses correctly.
+            </p>
+            <p>
+                Now I build my own things and talk to people about what's next. I
+                still write code most days.
+            </p>
+        </div>
+    </Section>
 
-  {/* ── A human note ───────────────────────────────────────── */}
-  <Section class="py-20 md:py-28">
-    <SectionEyebrow>Away from the keyboard</SectionEyebrow>
-    <p
-      class="reveal mt-8 max-w-[60ch] text-lg leading-[1.7] text-foreground/85"
-    >
-      I live in Bangalore and have for most of my career. Outside work I am
-      usually reading or cooking. If you want to talk about something, the form
-      below reaches me directly.
-    </p>
-  </Section>
+    {/* ── How I work ─────────────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>How I work</SectionEyebrow>
 
-  {/* ── Contact ────────────────────────────────────────────── */}
-  {/* No bottom rule — the footer's top border closes the page. */}
-  <Section bottom={false} class="py-20 md:py-28">
-    <div id="contact" class="scroll-mt-24">
-      <SectionEyebrow>Get in touch</SectionEyebrow>
-      <div class="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
-        <div class="reveal">
-          <h2
-            class="font-serif text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-4xl"
-          >
-            Let's talk.
-          </h2>
-          <p class="mt-5 max-w-[42ch] text-base leading-[1.65] text-muted-foreground">
-            I am usually up for a conversation, whether it is advisory work,
-            something on the founder side, or just an interesting problem. The
-            form reaches me directly, or you can email me at
-            <a
-              href="mailto:me@dipayanb.com"
-              class="text-foreground underline underline-offset-2 transition-colors hover:text-primary"
-              >me@dipayanb.com</a
-            >.
-          </p>
-          <div class="mt-8 flex items-center gap-5 text-muted-foreground">
+        {
+            /* Full-bleed hairline grid, same treatment as the projects / companies walls.
+        gap-px over bg-border draws the internal hairlines; border-y closes the band. */
+        }
+        <div
+            class="-mx-6 mt-8 grid grid-cols-1 gap-px border-y border-border bg-border sm:grid-cols-2 md:grid-cols-3"
+        >
             {
-              socials.map((s) => (
-                <a
-                  href={s.href}
-                  target={s.name === "mail" ? undefined : "_blank"}
-                  rel={s.name === "mail" ? undefined : "noopener noreferrer"}
-                  aria-label={s.label}
-                  class="transition-colors hover:text-foreground"
-                >
-                  <Icon name={s.name} />
-                </a>
-              ))
+                principles.map((p, i) => (
+                    <div class="group flex min-h-[200px] flex-col bg-muted p-8 transition-colors hover:bg-background md:p-10">
+                        <span class="font-mono text-xs text-muted-foreground">
+                            {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <h3 class="mt-4 font-serif text-xl font-medium tracking-[-0.01em] md:text-2xl">
+                            {p.title}
+                        </h3>
+                        <p class="mt-3 text-sm leading-[1.6] text-muted-foreground">
+                            {p.body}
+                        </p>
+                    </div>
+                ))
             }
-          </div>
         </div>
+    </Section>
 
-        {/* client:only — MeldUI/reka-ui can't SSR; forms flash empty briefly (gotcha #11). */}
-        <div class="reveal">
-          <ContactForm client:only="vue" />
+    {/* ── A human note ───────────────────────────────────────── */}
+    <Section class="py-20 md:py-28">
+        <SectionEyebrow>Away from the keyboard</SectionEyebrow>
+        <p
+            class="reveal mt-8 max-w-[60ch] text-lg leading-[1.7] text-muted-foreground"
+        >
+            I live in Bangalore and have for most of my career. Away from work,
+            I'm usually reading or cooking.
+        </p>
+    </Section>
+
+    {/* ── Contact ────────────────────────────────────────────── */}
+    {/* No bottom rule — the footer's top border closes the page. */}
+    <Section bottom={false} class="py-20 md:py-28">
+        <div id="contact" class="scroll-mt-24">
+            <SectionEyebrow>Get in touch</SectionEyebrow>
+            <div class="mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+                <div class="reveal">
+                    <h2
+                        class="font-serif text-3xl font-medium leading-[1.1] tracking-[-0.02em] md:text-4xl"
+                    >
+                        Let's talk.
+                    </h2>
+                    <p
+                        class="mt-5 max-w-[42ch] text-base leading-[1.65] text-muted-foreground"
+                    >
+                        I'm happy to talk about advisory work, founder
+                        conversations, or an interesting problem. The form goes
+                        straight to me, or email me at
+                        <a
+                            href="mailto:me@dipayanb.com"
+                            class="text-foreground underline underline-offset-2 transition-colors hover:text-primary"
+                            >me@dipayanb.com</a
+                        >.
+                    </p>
+                    <div
+                        class="mt-8 flex items-center gap-5 text-muted-foreground"
+                    >
+                        {
+                            socials.map((s) => (
+                                <a
+                                    href={s.href}
+                                    target={
+                                        s.name === "mail" ? undefined : "_blank"
+                                    }
+                                    rel={
+                                        s.name === "mail"
+                                            ? undefined
+                                            : "noopener noreferrer"
+                                    }
+                                    aria-label={s.label}
+                                    class="transition-colors hover:text-foreground"
+                                >
+                                    <Icon name={s.name} />
+                                </a>
+                            ))
+                        }
+                    </div>
+                </div>
+
+                {
+                    /* client:only — MeldUI/reka-ui can't SSR; forms flash empty briefly (gotcha #11). */
+                }
+                <div class="reveal">
+                    <ContactForm client:only="vue" />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </Section>
+    </Section>
 
-  <RevealScript />
+    <RevealScript />
 </BaseLayout>
