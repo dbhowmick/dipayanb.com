@@ -2,6 +2,9 @@
 dist/
 .astro/
 
+# generated OG share images (built from scripts/generate-og.mjs at build time)
+public/og/
+
 # cloudflare / wrangler
 .wrangler/
 

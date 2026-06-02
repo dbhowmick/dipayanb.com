@@ -10,12 +10,30 @@ import Footer from "../components/astro/Footer.astro";
 interface Props {
   title?: string;
   description?: string;
+  /** og:type — "website" for most pages, "article" for posts. */
+  type?: "website" | "article";
+  /** Set true to keep a page out of search indexes. */
+  noindex?: boolean;
+  /** Override the auto per-route OG card with a specific image path/URL. */
+  ogImage?: string;
 }
 
 const {
   title = "Dipayan Bhowmick",
   description = "Dipayan Bhowmick — engineer and builder. 18 years across data infrastructure, developer tools, and AI.",
+  type = "website",
+  noindex = false,
+  ogImage,
 } = Astro.props;
+
+const SITE_NAME = "Dipayan Bhowmick";
+
+// Canonical + absolute OG image. `Astro.site` is set in astro.config.mjs.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Per-route OG card generated at build by scripts/generate-og.mjs into /og/<slug>.png,
+// where <slug> is the page path ("/" → "home"). A page can override with `ogImage`.
+const ogSlug = Astro.url.pathname.replace(/^\/|\/$/g, "") || "home";
+const ogImageUrl = new URL(ogImage ?? `/og/${ogSlug}.png`, Astro.site).href;
 
 // Umami analytics. Emitted only in production builds (so local dev traffic is not
 // counted) and only when a website id is configured. Set PUBLIC_UMAMI_WEBSITE_ID in
@@ -51,6 +69,45 @@ const enableAnalytics = import.meta.env.PROD && Boolean(umamiWebsiteId);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={SITE_NAME} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta
+      name="theme-color"
+      content="#121212"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+
+    {/* Open Graph */}
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_US" />
+    {
+      ogImageUrl && (
+        <>
+          <meta property="og:image" content={ogImageUrl} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+        </>
+      )
+    }
+
+    {/* Twitter */}
+    <meta
+      name="twitter:card"
+      content={ogImageUrl ? "summary_large_image" : "summary"}
+    />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
 
     {/* Privacy-friendly analytics (Umami). Production builds only; see frontmatter. */}
     {

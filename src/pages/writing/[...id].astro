@@ -29,7 +29,11 @@ const words = post.body?.trim().split(/\s+/).filter(Boolean).length ?? 0;
 const readingTime = Math.max(1, Math.round(words / 200));
 ---
 
-<BaseLayout title={`${title} · Dipayan Bhowmick`} description={description}>
+<BaseLayout
+  title={`${title} · Dipayan Bhowmick`}
+  description={description}
+  type="article"
+>
   {/* Single 680px prose column; the footer's top border closes the page. */}
   <Section bottom={false} class="py-20 md:py-28">
     <article class="mx-auto max-w-[680px]">
