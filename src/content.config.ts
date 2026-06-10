@@ -29,6 +29,9 @@ const posts = defineCollection({
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    // Optional series metadata for multi-part posts (e.g. "Generative UI on Phoenix").
+    series: z.string().optional(),
+    part: z.number().int().optional(),
   }),
 });
 
